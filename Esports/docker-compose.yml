@@ -1,3 +1,6 @@
+# run this command in directory of this yml file
+# docker-compose up -d
+
 # latest version of docker-compose files
 version: "3"
 # Services (or containers):where we list the images used and their configuration
