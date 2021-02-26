@@ -6,6 +6,19 @@ using OpenQA.Selenium.Remote;
 
 namespace Framework.Selenium
 {
+// RemoteWebDriver
+
+// DriverFactory.Build() requires a type of browser, 
+//      either local to run on my laptop or remote to run on my Grid, 
+//      and the browser I want to use, either Chrome or Firefox. 
+//  If type equals "remote", the code will reach this else/if block and call BuildRemoteWebdriver().
+
+// This method uses the RemoteWebDriver class 
+//  and requires that we pass in the URI to the port to our Grid, 
+//  which is http://localhost:4444/wd/hub, and any other options like --start-maximized that we'd like to use as well. 
+// Then we return our newly created driver.
+
+
     public static class DriverFactory
     {
         public static IWebDriver Build(string type, string browser)
