@@ -1,27 +1,43 @@
+# latest version of docker-compose files
 version: "3"
+# Services (or containers):where we list the images used and their configuration
 services:
-
+# calling the first container "selenium-hub" and saying that:
   selenium-hub:
+  # It will use the selenium/hub image
     image: selenium/hub
+  # It will expose a port at 4444 (used later to connect to the grid)  
     ports:
       - "4444:4444"
     environment:
+  # allow 16 sessions or tests to run at one time  
         GRID_MAX_SESSION: 16
+  # set some grid timeouts to the recommended 300 seconds      
         GRID_BROWSER_TIMEOUT: 300
         GRID_TIMEOUT: 300
-
+        
+  # two containers - similar but uses different images, called appropriately
+  # 1 chrome container
   chrome:
     image: selenium/node-chrome
+    
+  # depends_on: links this container to the hub container. 
+  #   Because it is dependent on the selenium-hub container, 
+  #     it will wait until that container is fully up and operational 
+  #         before linking to it  
     depends_on:
       - selenium-hub
     environment:
+  # provide the ADDR and PORT which are the same as selenium-hub to link it  
       HUB_PORT_4444_TCP_ADDR: selenium-hub
       HUB_PORT_4444_TCP_PORT: 4444
+      # have two chrome browsers on it
       NODE_MAX_SESSION: 2
       NODE_MAX_INSTANCES: 2
     # volumes:
     #   - /dev/shm:/dev/shm
 
+# 2 firefox container
   firefox:
     image: selenium/node-firefox
     depends_on:
@@ -29,5 +45,6 @@ services:
     environment:
       HUB_PORT_4444_TCP_ADDR: selenium-hub
       HUB_PORT_4444_TCP_PORT: 4444
+      # 4 browsers 
       NODE_MAX_SESSION: 4
       NODE_MAX_INSTANCES: 4
