@@ -2,6 +2,10 @@
 using NUnit.Framework;
 using Tests.Base;
 
+// Each test is decorated with the Parallelizable attribute to they can run in parallel, 
+// and each test will have its own instance of a Driver and Page Objects. 
+// We then have them categorized for easy filtering.
+
 namespace League.Com.Tests
 {
     [TestFixture, Parallelizable]
